@@ -27,6 +27,18 @@ ui <- fluidPage(
     
     fluidRow(
         column(2,
+                br(),
+                actionButton("decodecurrentMETAR", "Decode current METAR")
+                ),
+        column(2,
+               textInput("current_METAR", label = "ICAO or IATA code", value = "EPWA")
+        )
+    ),
+    
+    hr(),
+    
+    fluidRow(
+        column(2,
                br(),
                actionButton("historicalMETAR", "Decode historical METAR")
                ),
@@ -89,6 +101,13 @@ server <- function(input, output, session) {
         shinyjs::enable("metar_download")
     })
 
+    observeEvent(input$decodecurrentMETAR,{
+        req(input$current_METAR)
+        current_METAR <- metar_get(input$current_METAR)
+        updateTextInput(session, "textMETAR", value = current_METAR)
+        decoded_METAR$data <- metar_decode(current_METAR, metric = input$metric_decode)
+        shinyjs::enable("metar_download")
+    })
 
     output$decodedMETAR <- renderDataTable({
         decoded_METAR$data
@@ -100,7 +119,6 @@ server <- function(input, output, session) {
         },
         content = function(file) {
             # Write to a file specified by the 'file' argument
-            #write.table(exclusions$data, file, sep = "\t", row.names = FALSE, quote = FALSE, col.names = FALSE)
             write.csv(decoded_METAR$data, file, row.names = FALSE)
         }
     )

@@ -9,6 +9,8 @@ options(shiny.maxRequestSize=20*1024^2)
 # Define UI for application that draws a histogram
 ui <- fluidPage(
 
+    theme = bslib::bs_theme(version = 3, bootswatch = "superhero"),
+    
     shinyjs::useShinyjs(),
     
     fluidRow(
@@ -109,8 +111,8 @@ server <- function(input, output, session) {
         shinyjs::enable("metar_download")
     })
 
-    output$decodedMETAR <- renderDataTable({
-        decoded_METAR$data
+    output$decodedMETAR <- renderDT({
+        datatable(decoded_METAR$data, style = "bootstrap4")
     })
 
     output$metar_download <- downloadHandler(

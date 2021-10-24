@@ -52,7 +52,7 @@ ui <- fluidPage(
                dateInput(
                    "sdate",
                    "Start date:",
-                   value = "2020-01-01",
+                   value = Sys.Date() - 7,
                    format = "yyyy-mm-dd",
                    min = "2000-01-01",
                    max = Sys.Date() - 1

@@ -125,7 +125,6 @@ server <- function(input, output, session) {
         }
     )
     
-    
     # Disable buttons at start
     shinyjs::disable("metar_download")
     

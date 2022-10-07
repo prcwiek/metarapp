@@ -9,7 +9,7 @@ options(shiny.maxRequestSize=20*1024^2)
 # Define UI for application that draws a histogram
 ui <- fluidPage(
 
-    theme = bslib::bs_theme(version = 3, bootswatch = "superhero"),
+    theme = bslib::bs_theme(version = 5, bootswatch = "minty"),
     
     shinyjs::useShinyjs(),
     
